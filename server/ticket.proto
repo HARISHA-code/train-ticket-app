@@ -1,1 +1,64 @@
+// ticket.proto
+syntax = "proto3";
 
+package ticket;
+
+service TicketService {
+    rpc PurchaseTicket (TicketRequest) returns (TicketResponse);
+    rpc GetReceipt (ReceiptRequest) returns (ReceiptResponse);
+    rpc GetSeatAllocation (SeatRequest) returns (SeatResponse);
+    rpc RemoveUser (RemoveUserRequest) returns (RemoveUserResponse);
+    rpc ModifySeat (ModifySeatRequest) returns (ModifySeatResponse);
+}
+
+message TicketRequest {
+    string from = 1;
+    string to = 2;
+    string user_first_name = 3;
+    string user_last_name = 4;
+    string user_email = 5;
+}
+
+message TicketResponse {
+    string receipt = 1;
+}
+
+message ReceiptRequest {
+    string user_email = 1;
+}
+
+message ReceiptResponse {
+    string receipt = 1;
+}
+
+message SeatRequest {
+    string section = 1;
+}
+
+message SeatResponse {
+    repeated SeatAllocation seat_allocation = 1;
+}
+
+message SeatAllocation {
+    string user_email = 1;
+    string section = 2;
+    string seat_number = 3;
+}
+
+message RemoveUserRequest {
+    string user_email = 1;
+}
+
+message RemoveUserResponse {
+    string message = 1;
+}
+
+message ModifySeatRequest {
+    string user_email = 1;
+    string new_section = 2;
+    string new_seat_number = 3;
+}
+
+message ModifySeatResponse {
+    string message = 1;
+}
